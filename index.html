@@ -33,9 +33,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* NAME */
 .name{font-family:'Anton',sans-serif;font-style:italic;font-size:clamp(2.8rem,10vw,4rem);line-height:.95;letter-spacing:.02em;background:linear-gradient(135deg,var(--white) 0%,var(--gold-light) 50%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fadeUp .8s ease forwards;opacity:0;animation-delay:.2s;text-transform:uppercase;margin-bottom:.3rem}
 
-.tagline-wrap{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.8rem;animation:fadeUp .8s ease forwards;opacity:0;animation-delay:.3s;flex-wrap:wrap}
+.tagline-wrap{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:.8rem;animation:fadeUp .8s ease forwards;opacity:0;animation-delay:.3s;flex-wrap:nowrap;overflow:hidden}
 .tagline-dot{width:5px;height:5px;background:var(--red);border-radius:50%;flex-shrink:0}
-.tagline{font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.tagline{font-size:.55rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
 
 .bio{font-size:.9rem;font-weight:300;line-height:1.7;color:#b0a898;max-width:380px;margin:0 auto 1.8rem;animation:fadeUp .8s ease forwards;opacity:0;animation-delay:.4s}
 .bio strong{color:var(--white);font-weight:600}
