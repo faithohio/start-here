@@ -73,11 +73,63 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .ch-cta svg{width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round}
 .hero-badge{position:absolute;top:0;right:20px;background:var(--red);color:#fff;font-size:.48rem;font-weight:800;letter-spacing:.25em;text-transform:uppercase;padding:.22rem .7rem;border-radius:0 0 3px 3px;z-index:4}
 
+/* ── GLOW CARD (special featured style) ── */
+.card-glow{
+  position:relative;width:100%;border-radius:4px;overflow:hidden;
+  text-decoration:none;display:block;
+  border:1px solid rgba(201,168,76,.4);
+  background:linear-gradient(135deg,#0d0900,#120b00);
+  padding:1.2rem 1.4rem;
+  transition:transform .3s,border-color .3s,box-shadow .3s;
+  box-shadow:0 0 20px rgba(201,168,76,.08), 0 0 60px rgba(201,168,76,.04);
+  animation:fadeUp .6s ease forwards;opacity:0;animation-delay:.65s;
+  margin-bottom:.75rem;
+}
+.card-glow:hover{
+  transform:translateY(-2px);
+  border-color:var(--gold);
+  box-shadow:0 0 30px rgba(201,168,76,.18), 0 0 80px rgba(201,168,76,.08);
+}
+/* Animated gold glow pulse */
+.card-glow::before{
+  content:'';position:absolute;inset:0;border-radius:4px;
+  background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.07) 0%,transparent 70%);
+  animation:glow-pulse 3s ease-in-out infinite;
+  pointer-events:none;z-index:0;
+}
+@keyframes glow-pulse{0%,100%{opacity:.6}50%{opacity:1}}
+
+.card-glow-inner{position:relative;z-index:1;display:flex;align-items:center;gap:1rem}
+.glow-icon{
+  width:40px;height:40px;flex-shrink:0;
+  border:1px solid rgba(201,168,76,.35);border-radius:2px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(201,168,76,.05);
+}
+.glow-icon svg{width:18px;height:18px;stroke:var(--gold);fill:none;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
+.glow-text{flex:1}
+.glow-title{
+  font-family:'Anton',sans-serif;font-style:italic;
+  font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;
+  background:linear-gradient(135deg,var(--white),var(--gold-light));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;margin-bottom:.2rem;
+}
+.glow-sub{font-size:.65rem;font-weight:300;color:#6a5a30;letter-spacing:.08em}
+.glow-arrow{flex-shrink:0;color:var(--gold-dim);font-size:.8rem;transition:transform .3s,color .3s}
+.card-glow:hover .glow-arrow{transform:translateX(4px);color:var(--gold)}
+
+/* Thin top gold line */
+.card-glow::after{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  z-index:2;
+}
+
 /* EXPAND CARDS */
 .links{display:flex;flex-direction:column;gap:.75rem}
 .card-b{position:relative;width:100%;overflow:hidden;border-radius:4px;border:1px solid #1e1e1e;text-decoration:none;display:block;transition:border-color .3s}
 
-/* Desktop hover */
 @media(hover:hover){
   .card-b{height:64px;transition:height .5s cubic-bezier(.25,.46,.45,.94),border-color .3s}
   .card-b:hover{height:min(calc(100vw * 9/16),304px);border-color:var(--gold-dim)}
@@ -92,7 +144,6 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .card-b:hover .expanded{opacity:1;transform:translateY(0)}
 }
 
-/* Mobile tap */
 @media(hover:none){
   .card-b{height:64px;transition:height .5s cubic-bezier(.25,.46,.45,.94),border-color .3s}
   .card-b.open{height:min(calc(100vw * 9/16),260px);border-color:var(--gold-dim)}
@@ -108,13 +159,30 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 }
 
 .bg-b{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .5s}
-.card-b.gp .bg-b{background:linear-gradient(to bottom,rgba(0,0,0,.15),rgba(0,0,0,.6)),url("assets/images/foi.gif") center/cover no-repeat}
+.card-b.gp .bg-b{background:radial-gradient(ellipse at 70% 40%,rgba(201,168,76,.2) 0%,transparent 55%),radial-gradient(ellipse at 20% 70%,rgba(200,16,46,.12) 0%,transparent 50%),#080602}
 .card-b.dossier .bg-b{background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.15) 0%,transparent 55%),#070705}
 .card-b.essays .bg-b{background:radial-gradient(ellipse at 35% 45%,rgba(201,168,76,.15) 0%,transparent 55%),#080602}
 .card-b.books .bg-b{background:radial-gradient(ellipse at 65% 40%,rgba(201,168,76,.1) 0%,transparent 50%),radial-gradient(ellipse at 15% 65%,rgba(200,16,46,.08) 0%,transparent 45%),#080808}
 .card-b.yt .bg-b{background:radial-gradient(ellipse at 50% 50%,rgba(200,16,46,.22) 0%,transparent 55%),#090202}
 .card-b.events .bg-b{background:radial-gradient(ellipse at 60% 35%,rgba(201,168,76,.12) 0%,transparent 50%),#080808}
 .card-b.speaking .bg-b{background:radial-gradient(ellipse at 40% 55%,rgba(200,16,46,.15) 0%,transparent 50%),#080606}
+
+/* ══════════════════════════════════════
+   HOW TO ADD A NEW CARD — BACKGROUND GLOW COLOR
+   Each card class controls its background glow.
+   To add a new card, pick one of these existing classes
+   or add your own at the bottom of this list:
+
+   .card-b.gp       = gold/red glow (good for programmes)
+   .card-b.essays   = soft gold glow (good for writing)
+   .card-b.books    = neutral gold (good for content)
+   .card-b.yt       = red glow (good for video)
+   .card-b.events   = subtle gold (good for events)
+   .card-b.speaking = red tint (good for contact)
+
+   To create a NEW color, copy this pattern and add it here:
+   .card-b.YOURNAME .bg-b{background:radial-gradient(ellipse at 50% 50%,rgba(201,168,76,.15) 0%,transparent 55%),#080808}
+══════════════════════════════════════ */
 
 .bg-grid-b{position:absolute;inset:0;z-index:1;background-image:linear-gradient(rgba(201,168,76,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.04) 1px,transparent 1px);background-size:50px 50px;opacity:0;transition:opacity .5s}
 .overlay-b{position:absolute;inset:0;z-index:2;background:linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.72));opacity:0;transition:opacity .5s}
@@ -163,31 +231,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </style>
   <!-- Meta Pixel Code -->
 <script>
-  !function(f,b,e,v,n,t,s) {
-    if(f.fbq) return;
-    n = f.fbq = function() {
-      n.callMethod ? n.callMethod.apply(n,arguments) : n.queue.push(arguments)
-    };
-    if(!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = !0;
-    n.version = '2.0';
-    n.queue = [];
-    t = b.createElement(e);
-    t.async = !0;
-    t.src = v;
-    s = b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)
-  }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-
-  fbq('init', '1439895864213745');
-  fbq('track', 'PageView');
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','1439895864213745');fbq('track','PageView');
 </script>
-<noscript>
-  <img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1439895864213745&ev=PageView&noscript=1"
-  />
-</noscript>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1439895864213745&ev=PageView&noscript=1"/></noscript>
 <!-- End Meta Pixel Code -->
 </head>
 <body>
@@ -233,6 +280,27 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <!-- DIVIDER -->
   <div class="section-divider"><span class="section-divider-icon">Begin</span></div>
 
+
+  <!-- ══════════════════════════════════════
+       GLOW CARD — FO LECTURES
+       To add another glow card, copy the entire
+       block below and paste it after this one.
+       Change the href, glow-title, and glow-sub.
+  ══════════════════════════════════════ -->
+  <a href="https://faithohio.com/lectures" target="_blank" rel="noopener" class="card-glow">
+    <div class="card-glow-inner">
+      <div class="glow-icon">
+        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="glow-text">
+        <div class="glow-title">Attend FO Lectures</div>
+        <div class="glow-sub">faithohio.com/lectures</div>
+      </div>
+      <div class="glow-arrow">→</div>
+    </div>
+  </a>
+
+
   <!-- NEW PUBLICATION -->
   <div class="section-label sl1">✦ Get 2026 Intelligence</div>
 
@@ -246,12 +314,26 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="ch-eyebrow">New Publication 2026</div>
       <div class="ch-title">Faith Ohio Intelligence</div>
       <div class="ch-sub">FOI 2026 — faithohio.com/foi</div>
-      <div class="ch-cta">Get FOi 2026 <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
+      <div class="ch-cta">Get FOI 2026 <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>
     </div>
   </a>
 
-  <!-- FLAT LINKS -->
+  <!-- FLAT EXPAND LINKS -->
   <div class="links" style="margin-top:1rem">
+
+    <!-- ══════════════════════════════════════
+         HOW TO ADD A NEW EXPAND CARD:
+
+         1. Copy one full card-b block below
+         2. Paste it where you want it in the list
+         3. Change the class (e.g. "card-b essays") —
+            use any existing class or add a new one
+            in the CSS section above
+         4. Update data-href to your link
+         5. Update bar-title, exp-title, exp-sub,
+            and the exp-cta href and text
+         6. Optionally add a card-b-badge if needed
+    ══════════════════════════════════════ -->
 
     <div class="card-b gp" data-href="https://geniusproof.faithohio.com">
       <div class="card-b-badge hot">Programme</div>
@@ -336,7 +418,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <div class="section-label sl3">Programmes & Events</div>
   <div class="links">
 
-    <div class="card-b events" data-href="#">
+    <div class="card-b events" data-href="https://faithohio.com/events">
       <div class="bg-b"></div><div class="bg-grid-b"></div><div class="overlay-b"></div>
       <div class="bar">
         <div class="icon-b"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
@@ -346,11 +428,11 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="expanded">
         <div class="exp-title">2026 Tour</div>
         <div class="exp-sub">Dates & Cities To Be Announced</div>
-        <a href="https://faithohio.com/events" class="exp-cta" onclick="event.stopPropagation()">Stay Notified <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="https://faithohio.com/events" target="_blank" rel="noopener" class="exp-cta" onclick="event.stopPropagation()">Stay Notified <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
 
-    <div class="card-b speaking" data-href="#">
+    <div class="card-b speaking" data-href="https://faithohio.com/speaking">
       <div class="bg-b"></div><div class="bg-grid-b"></div><div class="overlay-b"></div>
       <div class="bar">
         <div class="icon-b"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div>
@@ -360,7 +442,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="expanded">
         <div class="exp-title">Book Faith</div>
         <div class="exp-sub">Corporate, Keynote & Private Events</div>
-        <a href="https://faithohio.com/speaking" class="exp-cta" onclick="event.stopPropagation()">Get In Touch <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+        <a href="https://faithohio.com/speaking" target="_blank" rel="noopener" class="exp-cta" onclick="event.stopPropagation()">Get In Touch <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       </div>
     </div>
 
@@ -369,8 +451,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <!-- SOCIAL -->
   <div class="social-row">
     <a href="https://byfaithohio.substack.com" target="_blank" rel="noopener" class="social-btn" title="Substack">S</a>
-    <a href="https://instagram.com/byfaithohio" class="social-btn" title="Instagram">◎</a>
-    <a href="https://linkedin.com/in/byfaithohio" class="social-btn" title="LinkedIn">in</a>
+    <a href="https://instagram.com/byfaithohio" target="_blank" rel="noopener" class="social-btn" title="Instagram">◎</a>
+    <a href="https://linkedin.com/in/byfaithohio" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">in</a>
     <a href="https://youtube.com/@byfaithohio" target="_blank" rel="noopener" class="social-btn" title="YouTube">▶</a>
   </div>
 
